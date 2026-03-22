@@ -1,0 +1,6 @@
+apiVersion: v2
+name: mini-demo
+description: A 3-pod demo with welcome-service, postgres, and api-service
+type: application
+version: 0.1.0
+appVersion: "1.0.0"

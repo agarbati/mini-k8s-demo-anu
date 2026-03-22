@@ -1,0 +1,28 @@
+kind create cluster --name amit-demo --image kindest/node:v1.34.0
+kubectl cluster-info --context kind-amit-demo
+kubectl get nodes
+NAME                      STATUS   ROLES           AGE   VERSION
+amit-demo-control-plane   Ready    control-plane   89s   v1.34.0
+
+kubectl get pods -A
+
+kubectl config get-contexts
+kubectl config use-context kind-mini-demo-amit
+
+docker build -t welcome-service:latest ./services/welcome-service
+docker build -t api-service:latest ./services/api-service
+
+kind load docker-image welcome-service:latest --name amit-demo
+kind load docker-image api-service:latest --name amit-demo
+
+helm install mini-demo ./charts/mini-demo
+
+kubectl get pods -w
+
+kubectl get svc
+
+kubectl port-forward svc/mini-demo-api 8080:8080
+
+# in another terminal, do:
+curl http://localhost:8080/api/info
+

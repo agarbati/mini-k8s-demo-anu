@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-welcome
+spec:
+  replicas: {{ .Values.welcome.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-welcome
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-welcome
+    spec:
+      containers:
+        - name: welcome
+          image: "{{ .Values.welcome.image.repository }}:{{ .Values.welcome.image.tag }}"
+          imagePullPolicy: {{ .Values.welcome.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.welcome.service.port }}

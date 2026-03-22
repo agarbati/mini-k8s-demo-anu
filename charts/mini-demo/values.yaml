@@ -1,0 +1,30 @@
+welcome:
+  image:
+    repository: welcome-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    port: 8081
+
+api:
+  image:
+    repository: api-service
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    port: 8080
+
+postgres:
+  image:
+    repository: postgres
+    tag: "16"
+    pullPolicy: IfNotPresent
+  replicaCount: 1
+  service:
+    port: 5432
+  db:
+    name: appdb
+    user: appuser
+    password: apppassword

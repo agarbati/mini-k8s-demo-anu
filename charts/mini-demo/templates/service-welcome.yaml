@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-welcome
+spec:
+  selector:
+    app: {{ .Release.Name }}-welcome
+  ports:
+    - port: {{ .Values.welcome.service.port }}
+      targetPort: {{ .Values.welcome.service.port }}

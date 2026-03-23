@@ -1,19 +1,19 @@
-kind create cluster --name amit-demo --image kindest/node:v1.34.0
-kubectl cluster-info --context kind-amit-demo
+kind create cluster --name anu-demo --image kindest/node:v1.34.0
+kubectl cluster-info --context kind-anu-demo
 kubectl get nodes
 NAME                      STATUS   ROLES           AGE   VERSION
-amit-demo-control-plane   Ready    control-plane   89s   v1.34.0
+anu-demo-control-plane   Ready    control-plane   89s   v1.34.0
 
 kubectl get pods -A
 
 kubectl config get-contexts
-kubectl config use-context kind-mini-demo-amit
+kubectl config use-context kind-mini-demo-anu
 
 docker build -t welcome-service:latest ./services/welcome-service
 docker build -t api-service:latest ./services/api-service
 
-kind load docker-image welcome-service:latest --name amit-demo
-kind load docker-image api-service:latest --name amit-demo
+kind load docker-image welcome-service:latest --name anu-demo
+kind load docker-image api-service:latest --name anu-demo
 
 helm install mini-demo ./charts/mini-demo
 

@@ -23,6 +23,6 @@ kubectl get svc
 
 kubectl port-forward svc/mini-demo-api 8080:8080
 
-# in another terminal, do:
+# in another terminal, do: anu
 curl http://localhost:8080/api/info
 

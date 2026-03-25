@@ -48,4 +48,4 @@ def info():
 
 @app.get("/healthz")
 def healthz():
-    return {"status": "ok"}
+    return {"status": "ok ok"}

@@ -1,6 +1,6 @@
 welcome:
   image:
-    repository: welcome-service
+    repository: welcome-service-anu
     tag: latest
     pullPolicy: IfNotPresent
   replicaCount: 1
@@ -9,7 +9,7 @@ welcome:
 
 api:
   image:
-    repository: api-service
+    repository: api-service-anu
     tag: latest
     pullPolicy: IfNotPresent
   replicaCount: 1

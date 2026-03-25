@@ -9,20 +9,43 @@ kubectl get pods -A
 kubectl config get-contexts
 kubectl config use-context kind-mini-demo-anu
 
-docker build -t welcome-service:latest ./services/welcome-service
-docker build -t api-service:latest ./services/api-service
+docker build -t welcome-service-anu:latest ./services/welcome-service
+docker build -t api-service-anu:latest ./services/api-service
 
-kind load docker-image welcome-service:latest --name anu-demo
-kind load docker-image api-service:latest --name anu-demo
+kind load docker-image welcome-service-anu:latest --name anu-demo
+kind load docker-image api-service-anu:latest --name anu-demo
 
-helm install mini-demo ./charts/mini-demo
+helm install mini-demo-anu ./charts/mini-demo
 
 kubectl get pods -w
 
 kubectl get svc
 
-kubectl port-forward svc/mini-demo-api 8080:8080
-
+kubectl port-forward svc/mini-demo-anu-api 8081:8080
 # in another terminal, do: anu
-curl http://localhost:8080/api/info
+curl http://localhost:8081/api/info
+
+# better, to be able to access from other machines
+kubectl port-forward --address 0.0.0.0 svc/mini-demo-api 8081:8080
+curl http://<VM_IP>:8081/api/info
+
+================================
+
+# To debug pods
+kubectl describe pod welcome-service-anu
+
+
+# To redeploy cleanly:
+helm uninstall mini-demo-anu || true
+helm install mini-demo-anu ./charts/mini-demo
+kubectl get pods
+
+docker build -t welcome-service-anu:latest ./services/welcome-service
+kind load docker-image welcome-service-anu:latest --name anu-demo
+
+docker build -t api-service-anu:latest ./services/api-service
+kind load docker-image api-service-anu:latest --name anu-demo
+
+kubectl delete pod mini-demo-anu-welcome-<number>
+kubectl port-forward svc/mini-demo-anu-api 8081:8080
 
